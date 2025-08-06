@@ -1,4 +1,3 @@
-// src/api.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -6,4 +5,20 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-export default api;
+// Kayıt
+export const register = (data) => api.post('/auth/register', data);
+
+// Giriş
+export const login = (data) => api.post('/auth/login', data);
+
+// Günlük girişi ekle
+export const addEntry = (data, token) =>
+  api.post('/diary/new', data, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+// Günlükleri listele
+export const getEntries = (token) =>
+  api.get('/diary/list', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
